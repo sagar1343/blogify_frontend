@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Navbar() {
   return (
     <nav className="navbar bg-base-100 border-b w-full">
-      <div className="flex-none lg:hidden">
+      <div className="flex-none">
         <label
           htmlFor="my-drawer-3"
           aria-label="open sidebar"
