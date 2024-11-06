@@ -12,7 +12,7 @@ function Sidebar({ categories }: { categories: ICategory[] }) {
       <ul className="menu bg-base-200 min-h-full w-80 p-4">
         {categories.map((item) => (
           <li key={item.id}>
-            <Link to="/blogs">{item.title}</Link>
+            <Link to={`/blogs/?category=${item.id}`}>{item.title}</Link>
           </li>
         ))}
       </ul>
