@@ -14,7 +14,7 @@ function BlogTable({ blogs }: { blogs: IBlog[] }) {
         </thead>
         <tbody>
           {blogs.map((blog) => (
-            <tr>
+            <tr key={blog.id}>
               <td>
                 <div className="flex items-center gap-3">
                   <div className="avatar">
@@ -34,7 +34,7 @@ function BlogTable({ blogs }: { blogs: IBlog[] }) {
               <td className="hidden sm:block max-w-screen-md">
                 <p className="line-clamp-4">{blog.description}</p>
                 <br />
-                <span className="badge badge-ghost badge-sm">
+                <span className="badge badge-primary badge-sm">
                   {blog.category.title}
                 </span>
               </td>

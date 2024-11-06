@@ -26,7 +26,7 @@ function Navbar() {
         </label>
       </div>
       <div className="navbar-start">
-        <Link to="/blogs" className="hidden sm:flex btn btn-ghost text-xl">
+        <Link to="/blogs/" className="hidden sm:flex btn btn-ghost text-xl">
           Blogify
         </Link>
       </div>
