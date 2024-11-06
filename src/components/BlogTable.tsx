@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import { IBlog } from "../types/IBlog";
 
 function BlogTable({ blogs }: { blogs: IBlog[] }) {
+  const navigate = useNavigate();
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -27,7 +29,9 @@ function BlogTable({ blogs }: { blogs: IBlog[] }) {
                   </div>
                   <div>
                     <div className="font-bold">{blog.title}</div>
-                    <div className="text-sm opacity-50">United States</div>
+                    <div className="text-sm opacity-50">
+                      {blog.author.email}
+                    </div>
                   </div>
                 </div>
               </td>
@@ -40,7 +44,12 @@ function BlogTable({ blogs }: { blogs: IBlog[] }) {
               </td>
               <td>{new Date(blog.date).toDateString()}</td>
               <th>
-                <button className="btn btn-ghost btn-xs">details</button>
+                <button
+                  className="btn btn-ghost btn-xs"
+                  onClick={() => navigate("/blogs/" + blog.id)}
+                >
+                  details
+                </button>
               </th>
             </tr>
           ))}

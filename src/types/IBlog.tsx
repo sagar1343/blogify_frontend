@@ -1,3 +1,4 @@
+import { IAuthor } from "./IAuthor";
 import { ICategory } from "./ICategory";
 
 export interface IBlog {
@@ -8,5 +9,5 @@ export interface IBlog {
   category: ICategory;
   read_by: number;
   date: string;
-  author: number;
+  author: IAuthor;
 }

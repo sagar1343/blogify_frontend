@@ -7,7 +7,7 @@ import { IBlog } from "../types/IBlog";
 interface IBlogContext {
   loading: boolean;
   errors: AxiosError | null;
-  blogs: IBlog[];
+  blogs: IBlog[] | null;
   count: number;
   page: number;
   setPage: (prev: number) => void;
@@ -26,7 +26,7 @@ function BlogProvider({ children }: { children: ReactNode }) {
   const [searchParams] = useSearchParams();
   const [query, setQuery] = useState("blogs");
   const [page, setPage] = useState(1);
-  const { data: blogs, errors, loading, count } = useFetch<IBlog>(query);
+  const { data: blogs, errors, loading, count } = useFetch<IBlog[]>(query);
   const category = searchParams.get("category");
   const author = searchParams.get("author");
   const navigate = useNavigate();

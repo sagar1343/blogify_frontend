@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 interface UseFetchReturn<T> {
   loading: boolean;
   errors: AxiosError | null;
-  data: T[];
+  data: T | null;
   count: number;
 }
 
 function useFetch<T>(endpoint: string): UseFetchReturn<T> {
   const [loading, setLoading] = useState(true);
-  const [errors, setErrors] = useState(null);
-  const [data, setData] = useState([]);
+  const [errors, setErrors] = useState<AxiosError | null>(null);
+  const [data, setData] = useState<T | null>(null);
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -19,7 +19,8 @@ function useFetch<T>(endpoint: string): UseFetchReturn<T> {
     axios
       .get(`http://127.0.0.1:8000/${endpoint}`)
       .then((res) => {
-        setData(res.data.results);
+        console.log(res);
+        setData(res.data.results ?? res.data);
         setCount(res.data.count);
       })
       .catch((err) => setErrors(err))
@@ -27,7 +28,7 @@ function useFetch<T>(endpoint: string): UseFetchReturn<T> {
 
     return () => {
       setErrors(null);
-      setData([]);
+      setData(null);
     };
   }, [endpoint]);
 

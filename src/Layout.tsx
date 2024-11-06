@@ -2,12 +2,12 @@ import { Outlet } from "react-router-dom";
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
+import { BlogProvider } from "./context/BlogContext";
 import useFetch from "./hooks/useFetch";
 import { ICategory } from "./types/ICategory";
-import { BlogProvider } from "./context/BlogContext";
 
 function Layout() {
-  const { loading, errors, data } = useFetch<ICategory>("categories/");
+  const { loading, errors, data } = useFetch<ICategory[]>("categories/");
   if (errors) return <div>{errors.message}</div>;
   return loading ? (
     <Loader fullPage={true} />
