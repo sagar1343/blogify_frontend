@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom";
+import { FaEye } from "react-icons/fa6";
+import { Link, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import useFetch from "../hooks/useFetch";
 import { IBlog } from "../types/IBlog";
@@ -14,26 +15,29 @@ function BlogDetailsPage() {
         <div className="card w-full bg-base-100">
           <div className="card-body">
             <div className="flex justify-between items-center mb-6">
-              <h1 className="text-4xl font-extrabold text-primary mb-2">
-                {blog.title}
-              </h1>
+              <h1 className="text-6xl font-extrabold mb-2">{blog.title}</h1>
             </div>
 
-            <div className="flex items-center text-sm text-gray-500 mb-4">
-              <span className="font-medium text-secondary">
-                {blog.author.email}
-              </span>
-              <span className="mx-2">•</span>
-              <span>{new Date(blog.date).toDateString()}</span>
-            </div>
-
-            <div className="mb-6">
-              <span className="badge badge-secondary badge-lg">
-                {blog.category.title}
-              </span>
-              <span className="ml-3 text-sm text-gray-500">
-                {blog.read_by} Reads
-              </span>
+            <div className="flex justify-between">
+              <div className="mb-6">
+                <span className="badge badge-secondary badge-lg">
+                  {blog.category.title}
+                </span>
+                <div className="ml-3 text-sm text-gray-500 inline-flex items-center gap-1">
+                  <span>{blog.read_by}</span>
+                  <FaEye className="inline" />
+                </div>
+              </div>
+              <div className="flex items-center text-sm text-gray-500 mb-4">
+                <Link
+                  to={`/blogs/?author=${blog.author.id}`}
+                  className="font-medium text-secondary"
+                >
+                  {blog.author.email}
+                </Link>
+                <span className="mx-2">•</span>
+                <span>{new Date(blog.date).toDateString()}</span>
+              </div>
             </div>
 
             <div className="space-y-8">

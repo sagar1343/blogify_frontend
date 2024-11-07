@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { IBlog } from "../types/IBlog";
 
@@ -23,19 +23,28 @@ const BlogContext = createContext<IBlogContext>({
 });
 
 function BlogProvider({ children }: { children: ReactNode }) {
+  const navigate = useNavigate();
+  const { id: blogId } = useParams();
   const [searchParams] = useSearchParams();
-  const [query, setQuery] = useState("blogs");
   const [page, setPage] = useState(1);
+  const [query, setQuery] = useState("blogs");
   const { data: blogs, errors, loading, count } = useFetch<IBlog[]>(query);
   const category = searchParams.get("category");
   const author = searchParams.get("author");
-  const navigate = useNavigate();
+  const search = searchParams.get("search");
 
+  useEffect(
+    () => updateURLAndQuery(),
+    [search, blogId, category, author, page]
+  );
   useEffect(() => setPage(1), [category, author]);
 
-  useEffect(() => updateURLAndQuery(), [category, page]);
-
   function updateURLAndQuery(): void {
+    if (search) {
+      setQuery("/blogs/?search=" + search);
+      return;
+    }
+    if (blogId) return;
     const params: string[] = [];
     if (category) params.push("category=" + category);
     if (author) params.push("author=" + author);

@@ -19,17 +19,11 @@ function useFetch<T>(endpoint: string): UseFetchReturn<T> {
     axios
       .get(`http://127.0.0.1:8000/${endpoint}`)
       .then((res) => {
-        console.log(res);
         setData(res.data.results ?? res.data);
         setCount(res.data.count);
       })
       .catch((err) => setErrors(err))
       .finally(() => setLoading(false));
-
-    return () => {
-      setErrors(null);
-      setData(null);
-    };
   }, [endpoint]);
 
   return { loading, errors, data, count };

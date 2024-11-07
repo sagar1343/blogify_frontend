@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { IBlog } from "../types/IBlog";
+import { BlogContext } from "../context/BlogContext";
 
-function BlogTable({ blogs }: { blogs: IBlog[] }) {
+function BlogTable() {
+  const { blogs } = useContext(BlogContext);
   const navigate = useNavigate();
   return (
     <div className="overflow-x-auto">
@@ -15,7 +17,7 @@ function BlogTable({ blogs }: { blogs: IBlog[] }) {
           </tr>
         </thead>
         <tbody>
-          {blogs.map((blog) => (
+          {blogs?.map((blog) => (
             <tr key={blog.id}>
               <td>
                 <div className="flex items-center gap-3">
