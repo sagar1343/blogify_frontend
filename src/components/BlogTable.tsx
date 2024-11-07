@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { BlogContext } from "../context/BlogContext";
+import { IBlog } from "../types/IBlog";
 
-function BlogTable() {
-  const { blogs } = useContext(BlogContext);
+function BlogTable({ blogs }: { blogs: IBlog[] }) {
   const navigate = useNavigate();
+  if (!blogs?.length) return <p>No Results Found.</p>;
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -21,14 +20,21 @@ function BlogTable() {
             <tr key={blog.id}>
               <td>
                 <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle h-12 w-12">
-                      <img
-                        src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-                        alt="Avatar Tailwind CSS Component"
-                      />
+                  {blog.author.profile_picture_url ? (
+                    <div className="avatar">
+                      <div className="mask mask-squircle h-12 w-12">
+                        <img src={blog.author.profile_picture_url} />
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="avatar placeholder">
+                      <div className="bg-neutral mask mask-squircle h-12 w-12">
+                        <span className="text-3xl text-white">
+                          {blog.author.first_name.charAt(0).toLocaleUpperCase()}
+                        </span>
+                      </div>
+                    </div>
+                  )}
                   <div>
                     <div className="font-bold">{blog.title}</div>
                     <div className="text-sm opacity-50">

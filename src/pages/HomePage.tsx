@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import BlogTable from "../components/BlogTable";
 import Loader from "../components/Loader";
-import Pagination from "../components/Pagination";
-import { BlogContext } from "../context/BlogContext";
-import SearchBox from "../components/SearchBox";
 import Order from "../components/Order";
+import Pagination from "../components/Pagination";
+import SearchBox from "../components/SearchBox";
+import { BlogContext } from "../context/BlogContext";
 
 function HomePage(): React.JSX.Element {
   const { blogs, errors, loading, count } = useContext(BlogContext);
@@ -15,11 +15,11 @@ function HomePage(): React.JSX.Element {
     <Loader fullPage={false} />
   ) : (
     <>
-      <div className="flex items-center justify-between my-4">
-        <SearchBox />
+      <div className="flex justify-between items-center mt-4 mb-8">
         <Order />
+        <SearchBox />
       </div>
-      {blogs && <BlogTable />}
+      {blogs && <BlogTable blogs={blogs} />}
       {totalPage > 1 && (
         <div className="flex justify-center">
           <Pagination totalPage={totalPage} />

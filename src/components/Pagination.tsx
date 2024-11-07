@@ -13,7 +13,7 @@ function Pagination({ totalPage }: { totalPage: number }) {
       >
         Prev
       </button>
-      <button className="join-item btn btn-ghost">
+      <button className="join-item font-medium text-sm cursor-default px-3">
         Page {page} of {totalPage}
       </button>
       <button

@@ -20,7 +20,7 @@ function BlogDetailsPage() {
 
             <div className="flex justify-between">
               <div className="mb-6">
-                <span className="badge badge-secondary badge-lg">
+                <span className="badge badge-primary badge-lg">
                   {blog.category.title}
                 </span>
                 <div className="ml-3 text-sm text-gray-500 inline-flex items-center gap-1">
@@ -31,7 +31,7 @@ function BlogDetailsPage() {
               <div className="flex items-center text-sm text-gray-500 mb-4">
                 <Link
                   to={`/blogs/?author=${blog.author.id}`}
-                  className="font-medium text-secondary"
+                  className="font-medium text-primary"
                 >
                   {blog.author.email}
                 </Link>
@@ -42,7 +42,7 @@ function BlogDetailsPage() {
 
             <div className="space-y-8">
               <section>
-                <h2 className="text-2xl font-semibold text-accent mb-2">
+                <h2 className="text-2xl font-semibold text-primary mb-2">
                   Description
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
@@ -51,7 +51,7 @@ function BlogDetailsPage() {
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-accent mb-2">
+                <h2 className="text-2xl font-semibold text-primary mb-2">
                   Full Content
                 </h2>
                 <p className="text-gray-700 leading-relaxed whitespace-pre-line">
