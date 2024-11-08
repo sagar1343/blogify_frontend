@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
@@ -23,6 +24,7 @@ function Layout() {
         </main>
       </div>
       <Sidebar categories={data} />
+      <Toaster />
     </div>
   );
 }

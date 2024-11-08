@@ -1,9 +1,13 @@
 import { createBrowserRouter, RouteObject } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
 import Layout from "./Layout";
 import BlogDetailsPage from "./pages/BlogDetailsPage";
 import HomePage from "./pages/HomePage";
 import MyBlogPage from "./pages/MyBlogPage";
 import NewBlogPage from "./pages/NewBlogPage";
+import ProfilePage from "./pages/ProfilePage";
+import RegisterPage from "./pages/RegisterPage";
+import SignInPage from "./pages/SignInPage";
 
 const routes: RouteObject[] = [
   {
@@ -12,8 +16,32 @@ const routes: RouteObject[] = [
     children: [
       { path: "/blogs", element: <HomePage /> },
       { path: "/blogs/:id", element: <BlogDetailsPage /> },
-      { path: "/blogs/new", element: <NewBlogPage /> },
-      { path: "/blogs/me", element: <MyBlogPage /> },
+      { path: "/register", element: <RegisterPage /> },
+      { path: "/signIn", element: <SignInPage /> },
+      {
+        path: "/blogs/new",
+        element: (
+          <PrivateRoute>
+            <NewBlogPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/blogs/me",
+        element: (
+          <PrivateRoute>
+            <MyBlogPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/me",
+        element: (
+          <PrivateRoute>
+            <ProfilePage />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 ];

@@ -1,13 +1,12 @@
-import { useContext } from "react";
 import BlogTable from "../components/BlogTable";
 import Loader from "../components/Loader";
 import Order from "../components/Order";
 import Pagination from "../components/Pagination";
 import SearchBox from "../components/SearchBox";
-import { BlogContext } from "../context/BlogContext";
+import { useBlog } from "../context/BlogContext";
 
 function HomePage(): React.JSX.Element {
-  const { blogs, errors, loading, count } = useContext(BlogContext);
+  const { blogs, errors, loading, count } = useBlog();
   if (errors) return <p>{errors.message}</p>;
   const totalPage = Math.ceil(count / 10);
 

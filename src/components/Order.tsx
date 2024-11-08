@@ -4,10 +4,9 @@ import {
   ListboxOption,
   ListboxOptions,
 } from "@headlessui/react";
-import { useContext } from "react";
 import { FaCheck } from "react-icons/fa";
 import { HiChevronUpDown } from "react-icons/hi2";
-import { BlogContext } from "../context/BlogContext";
+import { useBlog } from "../context/BlogContext";
 
 enum Label {
   DEFAULT = "Default",
@@ -23,7 +22,7 @@ interface OrderOption {
 }
 
 function Order() {
-  const { order, setOrder } = useContext(BlogContext);
+  const { order, setOrder } = useBlog();
   const orderOptions: OrderOption[] = [
     { label: Label.DEFAULT, order: "" },
     { label: Label.LATEST, order: "-date" },

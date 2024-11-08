@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import { BlogContext } from "../context/BlogContext";
+import { useBlog } from "../context/BlogContext";
 
 function Pagination({ totalPage }: { totalPage: number }) {
-  const { page, setPage } = useContext(BlogContext);
+  const { page, setPage } = useBlog();
 
   return (
     <div className="join">

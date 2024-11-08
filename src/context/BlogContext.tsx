@@ -1,5 +1,11 @@
 import { AxiosError } from "axios";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { IBlog } from "../types/IBlog";
@@ -15,7 +21,7 @@ interface IBlogContext {
   setOrder: (prev: string) => void;
 }
 
-const BlogContext = createContext<IBlogContext>({
+export const BlogContext = createContext<IBlogContext>({
   loading: true,
   errors: null,
   blogs: [],
@@ -26,7 +32,7 @@ const BlogContext = createContext<IBlogContext>({
   setOrder: () => {},
 });
 
-function BlogProvider({ children }: { children: ReactNode }) {
+export function BlogProvider({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const { id: blogId } = useParams();
   const [searchParams] = useSearchParams();
@@ -69,4 +75,4 @@ function BlogProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export { BlogContext, BlogProvider };
+export const useBlog = () => useContext(BlogContext);
