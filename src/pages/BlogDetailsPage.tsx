@@ -15,7 +15,9 @@ function BlogDetailsPage() {
         <div className="card w-full bg-base-100">
           <div className="card-body">
             <div className="flex justify-between items-center mb-6">
-              <h1 className="text-6xl font-extrabold mb-2">{blog.title}</h1>
+              <h1 className="text-6xl capitalize font-extrabold mb-2">
+                {blog.title}
+              </h1>
             </div>
 
             <div className="flex justify-between">

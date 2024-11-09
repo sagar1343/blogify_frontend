@@ -3,15 +3,16 @@ import { IBlog } from "../types/IBlog";
 
 function BlogTable({ blogs }: { blogs: IBlog[] }) {
   const navigate = useNavigate();
-  if (!blogs?.length) return <p>No Results Found.</p>;
+  if (!blogs?.length)
+    return <p className="text-4xl text-zinc-300">No Results Found :)</p>;
   return (
     <div className="overflow-x-auto">
       <table className="table">
         <thead>
           <tr>
             <th>Title</th>
-            <th>Description</th>
-            <th>Date</th>
+            <th className="hidden md:table-cell">Description</th>
+            <th className="hidden lg:table-cell">Date</th>
             <th></th>
           </tr>
         </thead>
@@ -19,7 +20,7 @@ function BlogTable({ blogs }: { blogs: IBlog[] }) {
           {blogs?.map((blog) => (
             <tr key={blog.id}>
               <td>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 capitalize">
                   {blog.author.profile_picture_url ? (
                     <div className="avatar">
                       <div className="mask mask-squircle h-12 w-12">
@@ -43,22 +44,24 @@ function BlogTable({ blogs }: { blogs: IBlog[] }) {
                   </div>
                 </div>
               </td>
-              <td className="hidden sm:block max-w-screen-md">
+              <td className="hidden md:table-cell max-w-screen-sm">
                 <p className="line-clamp-4">{blog.description}</p>
                 <br />
                 <span className="badge badge-primary badge-sm">
                   {blog.category.title}
                 </span>
               </td>
-              <td>{new Date(blog.date).toDateString()}</td>
-              <th>
+              <td className="text-nowrap hidden lg:table-cell">
+                {new Date(blog.date).toDateString()}
+              </td>
+              <td>
                 <button
                   className="btn btn-ghost btn-xs"
                   onClick={() => navigate("/blogs/" + blog.id)}
                 >
                   details
                 </button>
-              </th>
+              </td>
             </tr>
           ))}
         </tbody>

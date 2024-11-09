@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { FaUserCircle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import useUpload from "../hooks/useUpload";
 import { api } from "../service/api";
-import toast from "react-hot-toast";
 
 interface FormData {
   username: string;
@@ -209,11 +209,8 @@ function Register() {
                 className="group relative flex w-full justify-center rounded-md bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary disabled:bg-gray-300"
                 disabled={loading}
               >
-                {loading ? (
-                  <span className="loading loading-spinner" />
-                ) : (
-                  "Sign Up"
-                )}
+                Sign Up{" "}
+                {loading && <span className="loading loading-spinner" />}
               </button>
             </div>
           </form>

@@ -11,19 +11,21 @@ interface LoginFormInputs {
 }
 
 function SignInPage() {
-  const { login, user } = useAuth();
-  const { register, reset, handleSubmit } = useForm<LoginFormInputs>();
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
+  const { login, user } = useAuth();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const { register, reset, handleSubmit, formState } =
+    useForm<LoginFormInputs>();
+
   const onSubmit = handleSubmit(async (data) => {
     try {
       setErrorMessage("");
       await login(data);
       reset();
       navigate("/blogs");
-      toast.success(`Welcome back ${user?.first_name || ""}`);
+      toast.success(`Welcome back ${user?.first_name ?? ""}`);
     } catch (error) {
-      setErrorMessage("Invalid credentials");
+      setErrorMessage("Invalid credentials...");
       reset({ password: "" });
     }
   });
@@ -83,16 +85,20 @@ function SignInPage() {
                 />
               </div>
               {errorMessage && (
-                <p className="text-sm text-red-500">{errorMessage}</p>
+                <p className="text-sm mt-1 text-red-500">{errorMessage}</p>
               )}
             </div>
 
             <div>
               <button
+                disabled={formState.isSubmitting}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-prtext-primary/hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
-                Sign in
+                Sign in{" "}
+                {formState.isSubmitting && (
+                  <span className="loading loading-spinner" />
+                )}
               </button>
             </div>
           </form>

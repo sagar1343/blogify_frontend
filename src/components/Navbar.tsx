@@ -10,29 +10,29 @@ function Navbar() {
 
   return (
     <nav className="navbar bg-base-100 border-b w-full">
-      <div className="flex-none">
-        <label
-          htmlFor="my-drawer-3"
-          aria-label="open sidebar"
-          className="btn btn-square btn-ghost"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h7"
-            />
-          </svg>
-        </label>
-      </div>
       <div className="navbar-start">
+        <div className="flex-none">
+          <label
+            htmlFor="my-drawer-3"
+            aria-label="open sidebar"
+            className="btn btn-square btn-ghost"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h7"
+              />
+            </svg>
+          </label>
+        </div>
         <Link to="/blogs/" className="hidden sm:flex btn btn-ghost text-xl">
           <img src={logo} className="w-20" alt="blogify-logo" />
         </Link>

@@ -1,4 +1,5 @@
 import { AxiosError } from "axios";
+import queryString from "query-string";
 import {
   createContext,
   ReactNode,
@@ -6,7 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { IBlog } from "../types/IBlog";
 
@@ -15,10 +16,16 @@ interface IBlogContext {
   errors: AxiosError | null;
   blogs: IBlog[] | null;
   count: number;
-  page: number;
-  order: string;
-  setPage: (prev: number) => void;
-  setOrder: (prev: string) => void;
+  filters: IFilters;
+  setFilters: React.Dispatch<React.SetStateAction<IFilters>>;
+}
+
+interface IFilters {
+  author?: number;
+  category?: number;
+  ordering?: string;
+  search?: string;
+  page?: number;
 }
 
 export const BlogContext = createContext<IBlogContext>({
@@ -26,49 +33,44 @@ export const BlogContext = createContext<IBlogContext>({
   errors: null,
   blogs: [],
   count: 0,
-  page: 1,
-  order: "",
-  setPage: () => {},
-  setOrder: () => {},
+  filters: {},
+  setFilters: () => {},
 });
 
 export function BlogProvider({ children }: { children: ReactNode }) {
-  const navigate = useNavigate();
   const { id: blogId } = useParams();
-  const [searchParams] = useSearchParams();
-  const [page, setPage] = useState(1);
-  const [order, setOrder] = useState("");
-  const [query, setQuery] = useState("blogs");
-  const { data: blogs, errors, loading, count } = useFetch<IBlog[]>(query);
-  const category = searchParams.get("category");
-  const author = searchParams.get("author");
-  const search = searchParams.get("search");
+  const navigate = useNavigate();
+  const [route, setRoute] = useState("/blogs");
+  const [filters, setFilters] = useState<IFilters>({});
+  const { data: blogs, count, errors, loading } = useFetch<IBlog[]>(route);
 
-  useEffect(
-    () => updateURLAndQuery(),
-    [search, blogId, category, author, order, page]
-  );
-  useEffect(() => setPage(1), [category, author]);
+  useEffect(() => {
+    const querystring = queryString.stringify(filters, {
+      skipEmptyString: true,
+      skipNull: true,
+    });
+    setRoute("/blogs?" + querystring);
+  }, [filters]);
 
-  function updateURLAndQuery(): void {
-    if (search) {
-      setQuery("/blogs/?search=" + search);
-      return;
-    }
+  useEffect(() => {
+    setFilters((prev) => ({ ...prev, page: 1 }));
+  }, [filters.category, filters.author, filters.search]);
+
+  useEffect(() => {
     if (blogId) return;
-    const params: string[] = [];
-    if (category) params.push("category=" + category);
-    if (author) params.push("author=" + author);
-    if (order) params.push("ordering=" + order);
-    params.push("page=" + page);
-    const queryString = "/blogs/?" + params.join("&");
-    navigate(queryString);
-    setQuery(queryString);
-  }
+    navigate(route);
+  }, [route]);
 
   return (
     <BlogContext.Provider
-      value={{ blogs, errors, loading, count, page, setPage, order, setOrder }}
+      value={{
+        blogs,
+        errors,
+        loading,
+        count,
+        filters,
+        setFilters,
+      }}
     >
       {children}
     </BlogContext.Provider>

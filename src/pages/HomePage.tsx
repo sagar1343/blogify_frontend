@@ -14,13 +14,13 @@ function HomePage(): React.JSX.Element {
     <Loader fullPage={false} />
   ) : (
     <>
-      <div className="flex justify-between items-center mt-4 mb-8">
+      <div className="flex gap-4 flex-wrap-reverse justify-between items-center mt-4 mb-8">
         <Order />
         <SearchBox />
       </div>
       {blogs && <BlogTable blogs={blogs} />}
       {totalPage > 1 && (
-        <div className="flex justify-center">
+        <div className="flex mt-10 justify-center">
           <Pagination totalPage={totalPage} />
         </div>
       )}

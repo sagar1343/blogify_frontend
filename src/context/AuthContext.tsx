@@ -7,6 +7,7 @@ import {
 } from "react";
 import { api } from "../service/api";
 import { IUser } from "../types/IUser";
+import { AxiosError } from "axios";
 
 interface AuthContextType {
   user: IUser | null;
@@ -43,7 +44,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("refresh_token", refresh);
       authenticated_user().then((data) => setUser(data));
     } catch (error) {
-      console.log(error);
+      if (error instanceof AxiosError && error.response)
+        throw new Error(error.response.data[0]);
+      else throw new Error("An unexpected error occurred");
     }
   }
 

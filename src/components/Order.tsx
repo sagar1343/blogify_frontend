@@ -21,15 +21,21 @@ interface OrderOption {
   order: string;
 }
 
+const orderOptions: OrderOption[] = [
+  { label: Label.DEFAULT, order: "" },
+  { label: Label.LATEST, order: "-date" },
+  { label: Label.TITLE, order: "title" },
+  { label: Label.VIEWS, order: "read_by" },
+  { label: Label.OLDEST, order: "date" },
+];
+
 function Order() {
-  const { order, setOrder } = useBlog();
-  const orderOptions: OrderOption[] = [
-    { label: Label.DEFAULT, order: "" },
-    { label: Label.LATEST, order: "-date" },
-    { label: Label.TITLE, order: "title" },
-    { label: Label.VIEWS, order: "read_by" },
-    { label: Label.OLDEST, order: "date" },
-  ];
+  const { filters, setFilters } = useBlog();
+  const order = filters.ordering;
+
+  const updateOrdering = (orderValue: string) => {
+    setFilters((prev) => ({ ...prev, ordering: orderValue }));
+  };
 
   const selectedLabel =
     orderOptions.find((item) => item.order === order)?.label || "Default";
@@ -38,10 +44,12 @@ function Order() {
     <Listbox
       value={order}
       onChange={(value) =>
-        setOrder(orderOptions.find((item) => item.label === value)?.order || "")
+        updateOrdering(
+          orderOptions.find((item) => item.label === value)?.order || ""
+        )
       }
     >
-      <div className="relative min-w-20 md:min-w-40">
+      <div className="relative w-32">
         <ListboxButton className="relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm/6">
           <span className="flex items-center">
             <span className="ml-3 block truncate">{selectedLabel}</span>
