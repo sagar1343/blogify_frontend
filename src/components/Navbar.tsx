@@ -1,12 +1,14 @@
+import toast from "react-hot-toast";
+import { FaUser } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { useAuth } from "../context/AuthContext";
-import toast from "react-hot-toast";
-import { FaUser } from "react-icons/fa6";
+import { useBlog } from "../context/BlogContext";
 
 function Navbar() {
   const navigate = useNavigate();
   const { logout, user } = useAuth();
+  const { setFilters } = useBlog();
 
   return (
     <nav className="navbar bg-base-100 border-b w-full">
@@ -33,7 +35,11 @@ function Navbar() {
             </svg>
           </label>
         </div>
-        <Link to="/blogs/" className="hidden sm:flex btn btn-ghost text-xl">
+        <Link
+          to="/blogs/"
+          onClick={() => setFilters({})}
+          className="hidden sm:flex btn btn-ghost text-xl"
+        >
           <img src={logo} className="w-20" alt="blogify-logo" />
         </Link>
       </div>

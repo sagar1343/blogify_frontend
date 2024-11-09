@@ -18,6 +18,9 @@ export default {
   },
   theme: {
     extend: {
+      backgroundColor: {
+        custom: "#f6f6f6"
+      },
       height: {
         custom: 'calc(100vh - 69px - 40px)'
       },
