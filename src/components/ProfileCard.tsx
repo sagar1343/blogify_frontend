@@ -1,26 +1,70 @@
+import { useRef, useState } from "react";
 import { CiLogin, CiLogout, CiUser } from "react-icons/ci";
-import { FaUser } from "react-icons/fa6";
+import { FaPen, FaUser } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import { Link as ReactScrollLink } from "react-scroll";
+import { useAuth } from "../context/AuthContext";
+import useUpload from "../hooks/useUpload";
+import { api } from "../service/api";
 
 function ProfileCard() {
   const { user } = useAuth();
+  const [profile, setProfile] = useState(user?.profile_picture_url);
+  const profileRef = useRef<HTMLInputElement>(null);
+  const cloudinaryUpload = useUpload();
+  const [loading, setLoading] = useState(false);
+
+  async function handleProfileChange(): Promise<void> {
+    if (
+      !profileRef.current ||
+      !profileRef.current.files ||
+      !profileRef.current.files[0]
+    )
+      return;
+
+    try {
+      setLoading(true);
+      const profile_picture_url = await cloudinaryUpload(
+        profileRef.current?.files[0]
+      );
+      await api.patch("/auth/users/me/", { profile_picture_url });
+      setProfile(profile_picture_url);
+    } catch (error) {
+      console.error("Error uploading profile picture:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="card bg-base-100 shadow-md">
       <figure className="px-14 pt-6 flex flex-col">
-        {user?.profile_picture_url ? (
-          <img
-            src={user?.profile_picture_url}
-            alt="user-avatar"
-            className="rounded-xl"
-          />
+        {loading ? (
+          <div className="skeleton size-32 rounded-2xl" />
+        ) : profile ? (
+          <div className="avatar">
+            <div className="w-32 rounded-2xl">
+              <img src={profile} />
+            </div>
+          </div>
         ) : (
           <FaUser fontSize={40} />
         )}
       </figure>
       <div className="card-body items-center text-center">
-        <h2 className="card-title">{user?.first_name}</h2>
+        <input
+          onChange={handleProfileChange}
+          type="file"
+          ref={profileRef}
+          accept="image/*"
+          className="hidden"
+        />
+        <h2 className="card-title">
+          {user?.first_name}
+          <button className="btn btn-ghost btn-sm">
+            <FaPen onClick={() => profileRef.current?.click()} />
+          </button>
+        </h2>
         <span className="text-xs uppercase">Personal Profile</span>
         <ul className="menu w-full">
           <li>
