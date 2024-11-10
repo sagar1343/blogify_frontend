@@ -1,8 +1,9 @@
+import { FaPen } from "react-icons/fa6";
 import { Element } from "react-scroll";
-import GenderSelector from "../components/GenderSelector";
 import { useAuth } from "../context/AuthContext";
 import useFetch from "../hooks/useFetch";
 import { IBlog } from "../types/IBlog";
+import ProfileUpdateForm from "./ProfileUpdateForm";
 
 function UserDetailsSection() {
   const { user } = useAuth();
@@ -11,7 +12,9 @@ function UserDetailsSection() {
     <div className="space-y-20">
       <Element name="profile" className="card bg-base-100 shadow-md">
         <div className="card-body">
-          <h2 className="card-title">Profile</h2>
+          <h2 className="card-title">
+            Profile <ProfileUpdateForm />
+          </h2>
           <p className="text-neutral-400">
             Basic info, for a better experience
           </p>
@@ -33,7 +36,12 @@ function UserDetailsSection() {
                   {user?.last_name}
                 </dd>
               </div>
-              <GenderSelector />
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt className="text-sm/6 font-medium text-gray-900">Gender</dt>
+                <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
+                  {user?.gender.charAt(0)}
+                </dd>
+              </div>
               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt className="text-sm/6 font-medium text-gray-900">Post</dt>
                 <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">

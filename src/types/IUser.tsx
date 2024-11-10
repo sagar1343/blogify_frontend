@@ -4,6 +4,6 @@ export interface IUser {
   email: string;
   first_name: string;
   last_name: string;
-  gender: "M" | "F" | "O" | null;
+  gender: "Male" | "Female" | "Other" | "";
   profile_picture_url: string;
 }

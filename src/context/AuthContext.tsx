@@ -13,6 +13,7 @@ interface AuthContextType {
   user: IUser | null;
   login: (credentials: { email: string; password: string }) => Promise<void>;
   logout: () => void;
+  setUserData: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -32,6 +33,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [accessToken]);
 
+  useEffect(() => {
+    if (accessToken) {
+      const interval = setInterval(() => {
+        refreshAccessToken();
+      }, 4 * 60 * 1000);
+      return () => clearInterval(interval);
+    }
+  }, [accessToken, refreshToken]);
+
   async function login(credentials: { email: string; password: string }) {
     try {
       const response = await api.post("/auth/jwt/create/", credentials);
@@ -42,11 +52,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       localStorage.setItem("access_token", access);
       localStorage.setItem("refresh_token", refresh);
-      authenticated_user().then((data) => setUser(data));
+      setUserData();
     } catch (error) {
       if (error instanceof AxiosError && error.response)
         throw new Error(error.response.data[0]);
       else throw new Error("An unexpected error occurred");
+    }
+  }
+
+  async function refreshAccessToken() {
+    try {
+      const response = await api.post("/auth/jwt/refresh/", {
+        refresh: refreshToken,
+      });
+      const { access } = response.data;
+      setAccessToken(access);
+      localStorage.setItem("access_token", access);
+    } catch (error) {
+      logout();
     }
   }
 
@@ -58,30 +81,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("refresh_token");
   }
 
-  const refreshAccessToken = async () => {
-    try {
-      const response = await api.post("/auth/jwt/refresh/", {
-        refresh: refreshToken,
-      });
-      const { access } = response.data;
-      setAccessToken(access);
-      localStorage.setItem("access_token", access);
-    } catch (error) {
-      logout();
-    }
-  };
-
-  useEffect(() => {
-    if (accessToken) {
-      const interval = setInterval(() => {
-        refreshAccessToken();
-      }, 4 * 60 * 1000);
-      return () => clearInterval(interval);
-    }
-  }, [accessToken, refreshToken]);
+  function setUserData() {
+    authenticated_user().then((data) => setUser(data));
+  }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, setUserData }}>
       {children}
     </AuthContext.Provider>
   );
