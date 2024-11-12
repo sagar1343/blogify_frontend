@@ -1,6 +1,2 @@
-import dotenv from 'dotenv';
-
-
-dotenv.config();
-export const cloud_name = process.env.CLOUD_NAME;
-export const upload_preset = process.env.UPLOAD_PRESET;
+export const cloud_name = import.meta.env.VITE_CLOUD_NAME;
+export const upload_preset = import.meta.env.VITE_UPLOAD_PRESET;

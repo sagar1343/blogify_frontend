@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import daisyuiThemes from 'daisyui/src/theming/themes';
+
 export default {
   darkMode: ["class"],
   content: [
@@ -9,7 +11,7 @@ export default {
     themes: [
       {
         light: {
-          ...require("daisyui/src/theming/themes")["light"],
+          ...daisyuiThemes["light"],
           'primary': '#2667ff',
           'primary-content': "white",
         },
@@ -38,4 +40,3 @@ export default {
     require("tailwindcss-animate")
   ],
 }
-
