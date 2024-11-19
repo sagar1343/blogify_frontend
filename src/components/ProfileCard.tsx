@@ -48,7 +48,7 @@ function ProfileCard() {
             </div>
           </div>
         ) : (
-          <FaUser fontSize={40} />
+          <FaUser size={128} />
         )}
       </figure>
       <div className="card-body items-center text-center">
@@ -61,8 +61,11 @@ function ProfileCard() {
         />
         <h2 className="card-title">
           {user?.first_name}
-          <button className="btn btn-ghost btn-sm">
-            <FaPen onClick={() => profileRef.current?.click()} />
+          <button
+            onClick={() => profileRef.current?.click()}
+            className="btn btn-ghost btn-sm"
+          >
+            <FaPen />
           </button>
         </h2>
         <span className="text-xs uppercase">Personal Profile</span>

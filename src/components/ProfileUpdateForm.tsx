@@ -5,7 +5,7 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaPen } from "react-icons/fa6";
 import { useAuth } from "../context/AuthContext";
@@ -82,18 +82,24 @@ function ProfileForm({ setOpen }: { setOpen: React.Dispatch<boolean> }) {
   });
   const [error, setError] = useState<ApiErrors | null>(null);
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
     setError(null);
-    api
-      .patch("/auth/users/me/", data)
-      .then(() => setUserData())
-      .then(() => setOpen(false))
-      .then(() => toast.success("Profile updated"))
-      .catch((err) => setError(err.response.data));
-  });
+    try {
+      await api.patch("/auth/users/me/", data);
+      setUserData();
+      setOpen(false);
+      toast.success("Profile updated successfully!");
+    } catch (err: any) {
+      setError(err.response?.data || {});
+      toast.error("Failed to update profile. Please try again.");
+    }
+  };
 
   return (
-    <form onSubmit={onSubmit} className="space-y-2 px-4 py-1 text-left">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="space-y-2 px-4 py-1 text-left"
+    >
       <div className="sm:grid sm:grid-cols-3 sm:gap-4 items-center sm:px-0">
         <dt className="text-sm/6 font-medium text-gray-900">First Name</dt>
         <dd className="mt-1 col-span-2">
