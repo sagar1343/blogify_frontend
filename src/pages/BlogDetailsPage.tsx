@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import useFetch from "../hooks/useFetch";
 import { IBlog } from "../types/IBlog";
-
+import ReactMarkdown from "react-markdown";
 function BlogDetailsPage() {
   const { id } = useParams();
   const { data: blog, loading } = useFetch<IBlog>("/blogs/" + id);
@@ -14,15 +14,13 @@ function BlogDetailsPage() {
       {blog && (
         <div className="card w-full bg-base-100">
           <div className="card-body">
-            <div className="flex justify-between items-center mb-6">
-              <h1 className="text-6xl capitalize font-extrabold mb-2">
-                {blog.title}
-              </h1>
-            </div>
-
-            <div className="flex justify-between">
+            <h1 className="text-5xl capitalize font-extrabold mb-2">
+              {blog.title}
+            </h1>
+            <p>{blog.description}</p>
+            <div className="flex justify-between border-b">
               <div className="mb-6">
-                <span className="badge badge-primary badge-lg">
+                <span className="badge badge-primary">
                   {blog.category.title}
                 </span>
                 <div className="ml-3 text-sm text-gray-500 inline-flex items-center gap-1">
@@ -41,26 +39,9 @@ function BlogDetailsPage() {
                 <span>{new Date(blog.date).toDateString()}</span>
               </div>
             </div>
-
-            <div className="space-y-8">
-              <section>
-                <h2 className="text-2xl font-semibold text-primary mb-2">
-                  Description
-                </h2>
-                <p className="text-gray-700 leading-relaxed">
-                  {blog.description}
-                </p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-semibold text-primary mb-2">
-                  Full Content
-                </h2>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-                  {blog.content}
-                </p>
-              </section>
-            </div>
+            <section className="space-y-8 my-6">
+              <ReactMarkdown className="prose">{blog.content}</ReactMarkdown>
+            </section>
           </div>
         </div>
       )}

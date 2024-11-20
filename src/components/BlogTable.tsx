@@ -38,7 +38,7 @@ function BlogTable({ blogs }: { blogs: IBlog[] }) {
                   )}
                   <div>
                     <div className="font-bold">{blog.title}</div>
-                    <div className="text-sm opacity-50">
+                    <div className="text-sm normal-case opacity-50">
                       {blog.author.email}
                     </div>
                   </div>
