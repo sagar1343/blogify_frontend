@@ -118,7 +118,7 @@ function NewBlogPage() {
           )}
         </div>
       </div>
-      <div className="mt-4 prose">
+      <div>
         <Controller
           name={"content"}
           control={control}
@@ -128,6 +128,7 @@ function NewBlogPage() {
               {...field}
               value={field.value}
               onChange={field.onChange}
+              className="mt-4 prose min-w-full"
             />
           )}
         />
