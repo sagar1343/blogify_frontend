@@ -62,7 +62,7 @@ function BlogTable({ blogs, editable }: Props) {
               <td>
                 {editable ? (
                   <button
-                    className="btn btn-warning btn-xs"
+                    className="btn btn-warning btn-xs flex-nowrap"
                     onClick={() => navigate("/blogs/edit/" + blog.id)}
                   >
                     <FaPencil /> Edit
