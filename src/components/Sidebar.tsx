@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
 import { useBlog } from "../context/BlogContext";
 import { ICategory } from "../types/ICategory";
 
 function Sidebar({ categories }: { categories: ICategory[] | null }) {
   const { setFilters } = useBlog();
+
+  const reset = () => setFilters({});
 
   const updateCategory = (categoryId: number) => {
     setFilters((prev) => ({ ...prev, category: categoryId }));
@@ -13,13 +14,13 @@ function Sidebar({ categories }: { categories: ICategory[] | null }) {
     <aside className="drawer-side">
       <label htmlFor="my-drawer-3" className="drawer-overlay" />
       <ul className="menu bg-base-200 min-h-full w-80 p-4">
-        <li>
-          <Link to="/blogs/">
+        <li onClick={reset}>
+          <div>
             All Categories
             <span className="badge badge-sm badge-primary">
               {calculateTotalBlog(categories)}
             </span>
-          </Link>
+          </div>
         </li>
         {categories?.map((item) => (
           <li key={item.id} onClick={() => updateCategory(item.id)}>
