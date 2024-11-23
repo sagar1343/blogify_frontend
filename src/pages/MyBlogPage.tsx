@@ -11,7 +11,7 @@ function MyBlogPage() {
   if (loading) return <Loader fullPage={false} />;
   return (
     <div className="mt-5 space-y-10">
-      {data && <Chart blogs={data} />}
+      {data && data?.length > 0 && <Chart blogs={data} />}
       <div>{data && <BlogTable blogs={data} editable />}</div>
     </div>
   );
