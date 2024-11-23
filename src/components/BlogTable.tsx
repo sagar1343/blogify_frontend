@@ -1,7 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { IBlog } from "../types/IBlog";
 
-function BlogTable({ blogs }: { blogs: IBlog[] }) {
+interface Props {
+  blogs: IBlog[];
+  editable?: boolean;
+}
+function BlogTable({ blogs, editable }: Props) {
   const navigate = useNavigate();
   if (!blogs?.length)
     return <p className="text-4xl text-zinc-300">No Results Found :)</p>;
@@ -55,12 +59,21 @@ function BlogTable({ blogs }: { blogs: IBlog[] }) {
                 {new Date(blog.date).toDateString()}
               </td>
               <td>
-                <button
-                  className="btn btn-ghost btn-xs"
-                  onClick={() => navigate("/blogs/" + blog.id)}
-                >
-                  details
-                </button>
+                {editable ? (
+                  <button
+                    className="btn btn-ghost btn-xs"
+                    onClick={() => navigate("/blogs/edit/" + blog.id)}
+                  >
+                    Edit
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-ghost btn-xs"
+                    onClick={() => navigate("/blogs/" + blog.id)}
+                  >
+                    details
+                  </button>
+                )}
               </td>
             </tr>
           ))}

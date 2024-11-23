@@ -10,7 +10,7 @@ function MyBlogPage() {
   return (
     <div className="mt-5 space-y-10">
       {data && <Chart blogs={data} />}
-      <div>{data && <BlogTable blogs={data} />}</div>
+      <div>{data && <BlogTable blogs={data} editable />}</div>
     </div>
   );
 }

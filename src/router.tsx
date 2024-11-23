@@ -2,6 +2,7 @@ import { createBrowserRouter, RouteObject } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import Layout from "./Layout";
 import BlogDetailsPage from "./pages/BlogDetailsPage";
+import EditBlogPage from "./pages/EditBlogPage";
 import HomePage from "./pages/HomePage";
 import MyBlogPage from "./pages/MyBlogPage";
 import NewBlogPage from "./pages/NewBlogPage";
@@ -31,6 +32,14 @@ const routes: RouteObject[] = [
         element: (
           <PrivateRoute>
             <MyBlogPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/blogs/edit/:id",
+        element: (
+          <PrivateRoute>
+            <EditBlogPage />
           </PrivateRoute>
         ),
       },
