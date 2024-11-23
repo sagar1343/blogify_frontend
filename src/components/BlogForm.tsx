@@ -147,8 +147,10 @@ function BlogForm({ onSubmit, defaultValues }: Props) {
         disabled={formState.isSubmitting}
       >
         <IoIosSend size={22} />
-        {defaultValues ? "Save changes" : "Publish"}
-        {formState.isSubmitting && <span className="loading loading-spinner" />}
+        {defaultValues ? "Save changes " : "Publish "}
+        {formState.isSubmitting && (
+          <span className="loading loading-sm loading-spinner" />
+        )}
       </button>
     </form>
   );

@@ -27,13 +27,13 @@ function Chart({ blogs }: Props) {
   return (
     <div className="space-y-10">
       <div className="flex space-x-3">
-        <div className="border">
+        <div className="border rounded-sm">
           <div className="flex flex-col mx-7 my-4">
             <p className="text-xs text-gray-400 text-center">Total Post</p>{" "}
             <span className="text-2xl font-semibold">{chartData?.length}</span>
           </div>
         </div>
-        <div className="border">
+        <div className="border rounded-sm">
           <div className="flex flex-col mx-7 my-4">
             <p className="text-xs text-gray-400 text-center">Total Reads</p>{" "}
             <span className="text-2xl font-semibold">

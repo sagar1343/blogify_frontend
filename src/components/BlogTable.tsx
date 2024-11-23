@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { IBlog } from "../types/IBlog";
+import { FaPencil } from "react-icons/fa6";
 
 interface Props {
   blogs: IBlog[];
@@ -61,10 +62,10 @@ function BlogTable({ blogs, editable }: Props) {
               <td>
                 {editable ? (
                   <button
-                    className="btn btn-ghost btn-xs"
+                    className="btn btn-warning btn-xs"
                     onClick={() => navigate("/blogs/edit/" + blog.id)}
                   >
-                    Edit
+                    <FaPencil /> Edit
                   </button>
                 ) : (
                   <button

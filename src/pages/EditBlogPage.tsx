@@ -22,12 +22,7 @@ function EditBlogPage() {
   };
 
   if (loading && !data) return <Loader fullPage={false} />;
-  return (
-    <div>
-      <div>EditBlogPage {id}</div>
-      <BlogForm onSubmit={onSubmit} defaultValues={data!} />
-    </div>
-  );
+  return <BlogForm onSubmit={onSubmit} defaultValues={data!} />;
 }
 
 export default EditBlogPage;
