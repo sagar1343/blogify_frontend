@@ -97,7 +97,7 @@ function SignInPage() {
               >
                 Sign in{" "}
                 {formState.isSubmitting && (
-                  <span className="loading loading-spinner" />
+                  <span className="loading loading-sm loading-spinner" />
                 )}
               </button>
             </div>

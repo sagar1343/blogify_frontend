@@ -21,7 +21,7 @@ function EditBlogPage() {
     toast.success("Updated Successfully");
   };
 
-  if (loading && !data) return <Loader fullPage={false} />;
+  if (loading && !data) return <Loader />;
   return <BlogForm onSubmit={onSubmit} defaultValues={data!} />;
 }
 

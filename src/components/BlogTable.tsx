@@ -72,7 +72,7 @@ function BlogTable({ blogs, editable }: Props) {
                     className="btn btn-ghost btn-xs"
                     onClick={() => navigate("/blogs/" + blog.id)}
                   >
-                    details
+                    Details
                   </button>
                 )}
               </td>

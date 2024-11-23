@@ -1,4 +1,4 @@
-function Loader({ fullPage = false }: { fullPage: boolean }) {
+function Loader({ fullPage = false }: { fullPage?: boolean }) {
   return (
     <div
       className={`${

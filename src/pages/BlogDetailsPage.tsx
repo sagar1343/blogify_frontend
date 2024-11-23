@@ -7,7 +7,7 @@ import ReactMarkdown from "react-markdown";
 function BlogDetailsPage() {
   const { id } = useParams();
   const { data: blog, loading } = useFetch<IBlog>("/blogs/" + id);
-  if (loading) return <Loader fullPage={false} />;
+  if (loading) return <Loader />;
 
   return (
     <>

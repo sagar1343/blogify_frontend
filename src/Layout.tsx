@@ -12,7 +12,7 @@ function Layout() {
   const { loading, errors, data } = useFetch<ICategory[]>("categories/");
 
   if (errors) return <div>{errors.message}</div>;
-  if (loading) return <Loader fullPage={true} />;
+  if (loading) return <Loader fullPage />;
 
   return (
     <div className="drawer">
@@ -21,7 +21,7 @@ function Layout() {
         <div className="drawer-content">
           <Navbar />
           <main className="p-5">
-            <Suspense fallback={<Loader fullPage={false} />}>
+            <Suspense fallback={<Loader />}>
               <Outlet />
             </Suspense>
           </main>

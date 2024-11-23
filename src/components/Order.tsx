@@ -25,7 +25,7 @@ const orderOptions: OrderOption[] = [
   { label: Label.DEFAULT, order: "" },
   { label: Label.LATEST, order: "-date" },
   { label: Label.TITLE, order: "title" },
-  { label: Label.VIEWS, order: "read_by" },
+  { label: Label.VIEWS, order: "-read_by" },
   { label: Label.OLDEST, order: "date" },
 ];
 

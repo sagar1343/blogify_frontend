@@ -1,29 +1,42 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
-  ResponsiveContainer,
-  LineChart,
   CartesianGrid,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  Tooltip,
-  Line,
 } from "recharts";
+import useFetch from "../hooks/useFetch";
 import { IBlog } from "../types/IBlog";
+import Loader from "./Loader";
 
-interface Props {
-  blogs: IBlog[];
+interface IChartData {
+  title: string;
+  reads: number;
 }
 
-function Chart({ blogs }: Props) {
-  const [chartData, setChartData] = useState<
-    { title: string; reads: number }[]
-  >([]);
+function Chart() {
+  const { data: blogs, loading } = useFetch<IBlog[]>("/blogs/me");
+  const [chartData, setChartData] = useState<IChartData[]>([]);
+
   useEffect(() => {
+    if (!blogs) return;
     setChartData(
       blogs.map((blog) => ({ title: blog.title, reads: blog.read_by }))
     );
   }, [blogs]);
-
+  if (loading)
+    return (
+      <div className="space-y-10 flex flex-col">
+        <div className="flex space-x-3">
+          <div className="skeleton w-28 h-20" />
+          <div className="skeleton w-28 h-20" />
+        </div>
+        <div className="skeleton h-72 w-full" />
+      </div>
+    );
   return (
     <div className="space-y-10">
       <div className="flex space-x-3">

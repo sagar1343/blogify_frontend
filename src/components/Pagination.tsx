@@ -1,14 +1,14 @@
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import { useBlog } from "../context/BlogContext";
 
-function Pagination({ totalPage }: { totalPage: number }) {
-  const { filters, setFilters } = useBlog();
-  const page = filters.page ?? 1;
-  const updatePageNumber = (value: number) =>
-    setFilters((prev) => ({ ...prev, page: value }));
+interface Props {
+  totalPage: number;
+  page: number;
+  updatePageNumber: (page: number) => void;
+}
 
+function Pagination({ totalPage, updatePageNumber, page }: Props) {
   return (
-    <div className="">
+    <div>
       <button
         disabled={page <= 1}
         onClick={() => updatePageNumber(Math.max(page - 1, 1))}
