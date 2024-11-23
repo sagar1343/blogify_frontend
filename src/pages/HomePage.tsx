@@ -20,7 +20,7 @@ function HomePage(): React.JSX.Element {
       </div>
       {blogs && <BlogTable blogs={blogs} />}
       {totalPage > 1 && (
-        <div className="flex mt-10 justify-center">
+        <div className="flex my-10 justify-center">
           <Pagination totalPage={totalPage} />
         </div>
       )}

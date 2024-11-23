@@ -1,3 +1,4 @@
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { useBlog } from "../context/BlogContext";
 
 function Pagination({ totalPage }: { totalPage: number }) {
@@ -7,23 +8,23 @@ function Pagination({ totalPage }: { totalPage: number }) {
     setFilters((prev) => ({ ...prev, page: value }));
 
   return (
-    <div className="join">
+    <div className="">
       <button
         disabled={page <= 1}
         onClick={() => updatePageNumber(Math.max(page - 1, 1))}
-        className="join-item btn btn-ghost"
+        className="btn btn-square btn-sm btn-ghost"
       >
-        Prev
+        <FaChevronLeft />
       </button>
-      <button className="join-item font-medium text-sm cursor-default px-3">
+      <button className="font-medium text-sm cursor-default px-3">
         Page {page} of {totalPage}
       </button>
       <button
         disabled={page >= totalPage}
         onClick={() => updatePageNumber(Math.min(page + 1, totalPage))}
-        className="join-item btn btn-ghost"
+        className="btn btn-square btn-sm btn-ghost"
       >
-        Next
+        <FaChevronRight />
       </button>
     </div>
   );
