@@ -10,7 +10,6 @@ import {
 } from "recharts";
 import useFetch from "../hooks/useFetch";
 import { IBlog } from "../types/IBlog";
-import Loader from "./Loader";
 
 interface IChartData {
   title: string;
