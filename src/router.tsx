@@ -51,6 +51,7 @@ const routes: RouteObject[] = [
           </PrivateRoute>
         ),
       },
+      { path: "*", element: <HomePage /> },
     ],
   },
 ];
