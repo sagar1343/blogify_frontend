@@ -18,13 +18,15 @@ function MyBlogPage() {
     <div className="mt-5 space-y-10">
       {data && data?.length > 0 && <Chart />}
       <div>{data && <BlogTable blogs={data} editable />}</div>
-      <div className="flex my-10 justify-center">
-        <Pagination
-          totalPage={Math.ceil(count / 10)}
-          page={page}
-          updatePageNumber={setPage}
-        />
-      </div>
+      {page > 1 && (
+        <div className="flex my-10 justify-center">
+          <Pagination
+            totalPage={Math.ceil(count / 10)}
+            page={page}
+            updatePageNumber={setPage}
+          />
+        </div>
+      )}
     </div>
   );
 }
