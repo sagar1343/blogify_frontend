@@ -1,11 +1,14 @@
 import { FaEye } from "react-icons/fa6";
+import ReactMarkdown from "react-markdown";
 import { Link, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
+import { useBlog } from "../context/BlogContext";
 import useFetch from "../hooks/useFetch";
 import { IBlog } from "../types/IBlog";
-import ReactMarkdown from "react-markdown";
+
 function BlogDetailsPage() {
   const { id } = useParams();
+  const { setFilters } = useBlog();
   const { data: blog, loading } = useFetch<IBlog>("/blogs/" + id);
   if (loading) return <Loader />;
 
@@ -30,6 +33,9 @@ function BlogDetailsPage() {
               </div>
               <div className="flex items-center text-sm text-gray-500 mb-4">
                 <Link
+                  onClick={() =>
+                    setFilters((prev) => ({ ...prev, author: blog.author.id }))
+                  }
                   to={`/blogs/?author=${blog.author.id}`}
                   className="font-medium text-primary"
                 >

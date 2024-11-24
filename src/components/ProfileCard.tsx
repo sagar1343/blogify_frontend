@@ -6,9 +6,10 @@ import { Link as ReactScrollLink } from "react-scroll";
 import { useAuth } from "../context/AuthContext";
 import useUpload from "../hooks/useUpload";
 import { api } from "../service/api";
+import toast from "react-hot-toast";
 
 function ProfileCard() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [profile, setProfile] = useState(user?.profile_picture_url);
   const profileRef = useRef<HTMLInputElement>(null);
   const cloudinaryUpload = useUpload();
@@ -81,7 +82,13 @@ function ProfileCard() {
             </ReactScrollLink>
           </li>
           <li>
-            <Link to="/blogs">
+            <Link
+              onClick={() => {
+                logout();
+                toast.success("Logged out successfully...");
+              }}
+              to="/blogs"
+            >
               <CiLogout fontSize={25} className="rounded-full" />
               Sign Out
             </Link>
