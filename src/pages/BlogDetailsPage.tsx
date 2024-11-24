@@ -18,7 +18,7 @@ function BlogDetailsPage() {
               {blog.title}
             </h1>
             <p>{blog.description}</p>
-            <div className="flex justify-between border-b">
+            <div className="flex justify-between border-b border-base-300">
               <div className="mb-6">
                 <span className="badge badge-primary">
                   {blog.category.title}

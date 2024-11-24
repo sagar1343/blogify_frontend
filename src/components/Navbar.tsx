@@ -1,17 +1,19 @@
 import toast from "react-hot-toast";
-import { FaUser } from "react-icons/fa6";
+import { FaRegMoon, FaRegSun, FaUser } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
+import logoDark from "../assets/logo-dark-transparent.png";
 import logo from "../assets/logo.png";
 import { useAuth } from "../context/AuthContext";
 import { useBlog } from "../context/BlogContext";
+import { useTheme } from "../context/ThemeContext";
 
 function Navbar() {
   const navigate = useNavigate();
   const { logout, user } = useAuth();
   const { setFilters } = useBlog();
-
+  const toggleTheme = useTheme();
   return (
-    <nav className="navbar bg-base-100 border-b w-full">
+    <nav className="navbar bg-base-100 border-b border-neutral/20 w-full">
       <div className="navbar-start">
         <div className="flex-none">
           <label
@@ -40,7 +42,16 @@ function Navbar() {
           onClick={() => setFilters({})}
           className="hidden sm:flex btn btn-ghost text-xl"
         >
-          <img src={logo} className="w-20" alt="blogify-logo" />
+          <img
+            src={logo}
+            className="swap-on w-20 dark:hidden"
+            alt="blogify-logo"
+          />
+          <img
+            src={logoDark}
+            className="swap-off w-20 hidden dark:block"
+            alt="blogify-dark-logo"
+          />
         </Link>
       </div>
       <div className="navbar-center">
@@ -53,7 +64,12 @@ function Navbar() {
           </li>
         </ul>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end space-x-4">
+        <label className="swap swap-rotate">
+          <input onChange={toggleTheme} type="checkbox" className="hidden" />
+          <FaRegSun fontSize={22} className="swap-on text-inherit" />
+          <FaRegMoon fontSize={22} className="swap-off text-inherit" />
+        </label>
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}

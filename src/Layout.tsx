@@ -20,7 +20,7 @@ function Layout() {
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           <Navbar />
-          <main className="p-5">
+          <main className="p-5 min-h-custom">
             <Suspense fallback={<Loader />}>
               <Outlet />
             </Suspense>

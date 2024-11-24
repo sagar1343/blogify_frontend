@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaUserCircle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import logoDark from "../assets/logo-dark-transparent.png";
 import logo from "../assets/logo.png";
 import useUpload from "../hooks/useUpload";
 import { api } from "../service/api";
@@ -68,9 +69,14 @@ function Register() {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <div className="flex justify-center">
-            <img src={logo} className="w-36" alt="blogify-logo" />
+            <img src={logo} className="w-36 dark:hidden" alt="blogify-logo" />
+            <img
+              src={logoDark}
+              className="w-36 hidden dark:block"
+              alt="blogify-logo"
+            />
           </div>
-          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-base-content">
             Create new account
           </h2>
         </div>
@@ -78,7 +84,7 @@ function Register() {
           <form onSubmit={onSubmit} className="space-y-6">
             <div className="mt-2 flex flex-col gap-2 justify-center items-center gap-x-3">
               {loading ? (
-                <span className="loading loading-spinner" />
+                <div className="skeleton h-12 w-12 shrink-0 rounded-full" />
               ) : image ? (
                 <img
                   src={image}
@@ -98,7 +104,7 @@ function Register() {
               <button
                 onClick={() => pictureRef.current?.click()}
                 type="button"
-                className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                className="rounded-md mt-3 bg-white dark:bg-inherit dark:hover:bg-inherit px-2.5 py-1.5 text-sm font-semibold text-gray-900 dark:text-base-content shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
               >
                 Change
               </button>
@@ -106,7 +112,7 @@ function Register() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm/6 font-medium text-gray-900"
+                className="block text-sm/6 font-medium text-gray-900 dark:text-base-content"
               >
                 Email address
               </label>
@@ -116,7 +122,7 @@ function Register() {
                   type="email"
                   {...register("email")}
                   autoComplete="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm/6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-base-content shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm/6 dark:bg-inherit"
                 />
                 {errors?.email && (
                   <p className="text-sm text-red-500">{errors.email}</p>
@@ -126,7 +132,7 @@ function Register() {
             <div>
               <label
                 htmlFor="username"
-                className="block text-sm/6 font-medium text-gray-900"
+                className="block text-sm/6 font-medium text-gray-900 dark:text-base-content"
               >
                 Username
               </label>
@@ -135,7 +141,7 @@ function Register() {
                   id="username"
                   {...register("username")}
                   type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm/6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-base-content shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm/6 dark:bg-inherit"
                 />
                 {errors?.username && (
                   <p className="text-sm text-red-500">{errors.username}</p>
@@ -145,7 +151,7 @@ function Register() {
             <div>
               <label
                 htmlFor="first_name"
-                className="block text-sm/6 font-medium text-gray-900"
+                className="block text-sm/6 font-medium text-gray-900 dark:text-base-content"
               >
                 First Name
               </label>
@@ -154,7 +160,7 @@ function Register() {
                   id="first_name"
                   {...register("first_name")}
                   type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm/6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-base-content shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm/6 dark:bg-inherit"
                 />
                 {errors?.first_name && (
                   <p className="text-sm text-red-500">{errors.first_name}</p>
@@ -165,7 +171,7 @@ function Register() {
             <div>
               <label
                 htmlFor="last_name"
-                className="block text-sm/6 font-medium text-gray-900"
+                className="block text-sm/6 font-medium text-gray-900 dark:text-base-content"
               >
                 Last Name
               </label>
@@ -174,7 +180,7 @@ function Register() {
                   id="last_name"
                   {...register("last_name")}
                   type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm/6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-base-content shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm/6 dark:bg-inherit"
                 />
                 {errors?.last_name && (
                   <p className="text-sm text-red-500">{errors.last_name}</p>
@@ -185,7 +191,7 @@ function Register() {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  className="block text-sm/6 font-medium text-gray-900 dark:text-base-content"
                 >
                   Password
                 </label>
@@ -196,7 +202,7 @@ function Register() {
                   {...register("password")}
                   type="password"
                   autoComplete="current-password"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm/6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-base-content shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm/6 dark:bg-inherit"
                 />
                 {errors?.password && (
                   <p className="text-sm text-red-500">{errors.password}</p>

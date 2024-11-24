@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
+import logoDark from "../assets/logo-dark-transparent.png";
 import { useAuth } from "../context/AuthContext";
 
 interface LoginFormInputs {
@@ -35,9 +36,14 @@ function SignInPage() {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <div className="flex justify-center">
-            <img src={logo} className="w-36" alt="blogify-logo" />
+            <img src={logo} className="w-36 dark:hidden" alt="blogify-logo" />
+            <img
+              src={logoDark}
+              className="w-36 hidden dark:block"
+              alt="blogify-logo"
+            />
           </div>
-          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-base-content dark:text-base-content">
             Sign in to your account
           </h2>
         </div>
@@ -47,7 +53,7 @@ function SignInPage() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm/6 font-medium text-gray-900"
+                className="block text-sm/6 font-medium text-gray-900 dark:text-base-content"
               >
                 Email address
               </label>
@@ -59,7 +65,7 @@ function SignInPage() {
                   type="email"
                   required
                   autoComplete="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm/6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-base-content shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm/6 dark:bg-inherit"
                 />
               </div>
             </div>
@@ -68,7 +74,7 @@ function SignInPage() {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  className="block text-sm/6 font-medium text-gray-900 dark:text-base-content"
                 >
                   Password
                 </label>
@@ -81,7 +87,7 @@ function SignInPage() {
                   type="password"
                   required
                   autoComplete="current-password"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm/6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-base-content shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm/6 dark:bg-inherit"
                 />
               </div>
               {errorMessage && (

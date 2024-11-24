@@ -16,12 +16,17 @@ export default {
           'primary-content': "white",
         },
       },
+      , 'night'
     ],
   },
+  darkMode: ['selector', '[data-theme="night"]'],
   theme: {
     extend: {
       backgroundColor: {
         custom: "#f6f6f6"
+      },
+      minHeight: {
+        custom: 'calc(100vh - 69px)'
       },
       height: {
         custom: 'calc(100vh - 69px - 40px)'

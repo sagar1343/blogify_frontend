@@ -21,7 +21,7 @@ function SearchBox() {
         type="text"
         defaultValue={filters.search}
         placeholder="Search..."
-        className="grow rounded-md border-0 px-4 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm/6"
+        className="grow rounded-md border-0 border-zinc-200 px-4 py-2 bg-inherit text-base shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm/6"
       />
       <button type="submit" className="btn btn-primary btn-circle">
         <IoSearchOutline fontSize={20} />
