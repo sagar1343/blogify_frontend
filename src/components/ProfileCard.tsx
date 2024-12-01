@@ -85,7 +85,7 @@ function ProfileCard() {
             <Link
               onClick={() => {
                 logout();
-                toast.success("Logged out successfully...");
+                toast.success("Logged out successfully.");
               }}
               to="/blogs"
             >
