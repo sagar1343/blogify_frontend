@@ -7,7 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { IBlog } from "../types/IBlog";
 
@@ -38,7 +38,6 @@ export const BlogContext = createContext<IBlogContext>({
 });
 
 export function BlogProvider({ children }: { children: ReactNode }) {
-  const { id: blogId } = useParams();
   const navigate = useNavigate();
   const [route, setRoute] = useState("/blogs");
   const [filters, setFilters] = useState<IFilters>({});
