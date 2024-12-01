@@ -22,7 +22,7 @@ interface Props {
 }
 function BlogForm({ onSubmit, defaultValues }: Props) {
   const { user } = useAuth();
-  const { data } = useFetch<ICategory[]>("/categories");
+  const { data } = useFetch<ICategory[]>("/blogs/categories");
   const { register, handleSubmit, reset, formState, control } =
     useForm<IFormData>({
       defaultValues: { ...defaultValues, author: user?.id },

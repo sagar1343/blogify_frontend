@@ -9,7 +9,7 @@ import useFetch from "./hooks/useFetch";
 import { ICategory } from "./types/ICategory";
 
 function Layout() {
-  const { loading, errors, data } = useFetch<ICategory[]>("categories/");
+  const { loading, errors, data } = useFetch<ICategory[]>("/blogs/categories");
 
   if (errors) return <div>{errors.message}</div>;
   if (loading) return <Loader fullPage />;
