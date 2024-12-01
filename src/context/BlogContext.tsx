@@ -56,10 +56,7 @@ export function BlogProvider({ children }: { children: ReactNode }) {
     setFilters((prev) => ({ ...prev, page: 1 }));
   }, [filters.category, filters.author, filters.search]);
 
-  useEffect(() => {
-    if (blogId) return;
-    navigate(route);
-  }, [route]);
+  useEffect(() => navigate(route), [route]);
 
   return (
     <BlogContext.Provider
