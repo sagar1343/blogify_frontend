@@ -15,7 +15,6 @@ function EditBlogPage() {
 
   const onSubmit: SubmitHandler<IFormData> = async (data) => {
     const payload = { ...data, category: data.category.id };
-    console.log(payload);
     await api.patch(`/blogs/${id}`, payload);
     navigate("/blogs/me");
     toast.success("Updated Successfully");

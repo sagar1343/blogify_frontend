@@ -88,7 +88,7 @@ function BlogForm({ onSubmit, defaultValues }: Props) {
                     </ListboxButton>
                     <ListboxOptions
                       transition
-                      className="absolute z-10 mt-1 max-h-52 w-full overflow-auto rounded-md bg-base-100 dark:bg-neutral-content py-1 text-base bg-inherit shadow-lg ring-1 ring-zinc-200 ring-opacity-5 focus:outline-none sm:text-sm"
+                      className="absolute z-10 mt-1 max-h-52 w-full overflow-auto rounded-md bg-base-100 dark:bg-neutral-content py-1 text-base shadow-lg ring-1 ring-zinc-200 ring-opacity-5 focus:outline-none sm:text-sm"
                     >
                       {data?.map((category) => (
                         <ListboxOption
