@@ -1,6 +1,7 @@
 import { FaEye } from "react-icons/fa6";
 import ReactMarkdown from "react-markdown";
 import { Link, useParams } from "react-router-dom";
+import Comments from "../components/Comments";
 import Loader from "../components/Loader";
 import { useBlog } from "../context/BlogContext";
 import useFetch from "../hooks/useFetch";
@@ -11,7 +12,6 @@ function BlogDetailsPage() {
   const { setFilters } = useBlog();
   const { data: blog, loading } = useFetch<IBlog>("/blogs/" + id);
   if (loading) return <Loader />;
-
   return (
     <>
       {blog && (
@@ -51,6 +51,7 @@ function BlogDetailsPage() {
           </div>
         </div>
       )}
+      {blog && <Comments blogId={blog.id} />}
     </>
   );
 }
