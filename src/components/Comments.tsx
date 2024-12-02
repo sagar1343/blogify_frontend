@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
-import useFetch from "../hooks/useFetch";
 import { api } from "../service/api";
 import { IComment } from "../types/IComment";
 import AddComments from "./AddComments";
 import ListComments from "./ListComments";
 
-function Comments({ blogId }: { blogId: number }) {
+interface Props {
+  blogId: number;
+  comments: IComment[];
+  setComments: React.Dispatch<React.SetStateAction<IComment[]>>;
+}
+
+function Comments({ blogId, comments, setComments }: Props) {
   const { user } = useAuth();
-  const { data, count, loading } = useFetch<IComment[]>("comments/" + blogId);
-  const [comments, setComments] = useState<IComment[]>([]);
 
   async function addComment(comment: string, object_id: number, user: number) {
     if (!comment && !user) return;
@@ -29,27 +31,14 @@ function Comments({ blogId }: { blogId: number }) {
     }
   }
 
-  useEffect(() => {
-    data && setComments(data);
-  }, [data]);
-
-  if (loading) return <CommentLoader />;
   return (
-    <section className="p-8 space-y-4">
+    <section className="p-8 space-y-10">
       <h1 className="text-2xl font-semibold">{comments.length} Comments</h1>
       {blogId && user && (
         <AddComments user={user} blogId={blogId} handleComment={addComment} />
       )}
       {comments && <ListComments comments={comments} />}
     </section>
-  );
-}
-
-function CommentLoader() {
-  return (
-    <div className="flex justify-center">
-      <span className="loading loading-dots loading-lg" />
-    </div>
   );
 }
 

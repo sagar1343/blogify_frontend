@@ -10,4 +10,5 @@ export interface IBlog {
   read_by: number;
   date: string;
   author: IUser;
+  upvote: number;
 }

@@ -1,12 +1,11 @@
 import { FaEye } from "react-icons/fa6";
 import ReactMarkdown from "react-markdown";
 import { Link, useParams } from "react-router-dom";
-import Comments from "../components/Comments";
 import Loader from "../components/Loader";
+import Social from "../components/Social";
 import { useBlog } from "../context/BlogContext";
 import useFetch from "../hooks/useFetch";
 import { IBlog } from "../types/IBlog";
-import SocialCounts from "../components/SocialCounts";
 
 function BlogDetailsPage() {
   const { id } = useParams();
@@ -28,8 +27,8 @@ function BlogDetailsPage() {
                   {blog.category.title}
                 </span>
                 <div className="ml-3 text-sm text-gray-500 inline-flex items-center gap-1">
-                  <span>{blog.read_by}</span>
                   <FaEye className="inline" />
+                  <span>{blog.read_by}</span>
                 </div>
               </div>
               <div className="flex items-center text-sm text-gray-500 mb-4">
@@ -52,8 +51,7 @@ function BlogDetailsPage() {
           </div>
         </div>
       )}
-      <SocialCounts />
-      {blog && <Comments blogId={blog.id} />}
+      {blog && <Social blog={blog} />}
     </>
   );
 }

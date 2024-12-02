@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IoSend } from "react-icons/io5";
 import { IUser } from "../types/IUser";
+import { FaUser } from "react-icons/fa6";
 
 interface Props {
   blogId: number;
@@ -20,13 +21,17 @@ function AddComments({ user, blogId, handleComment }: Props) {
   };
 
   return (
-    <div className="flex gap-2 my-12">
+    <div className="flex gap-2">
       <div className="avatar">
-        <div className="size-10 rounded-full">
-          <img
-            alt={"profile-" + user?.first_name}
-            src={user?.profile_picture_url}
-          />
+        <div className="size-10 flex justify-between items-center rounded-full">
+          {user.profile_picture_url ? (
+            <img
+              alt={"profile-" + user?.first_name}
+              src={user?.profile_picture_url}
+            />
+          ) : (
+            <FaUser fontSize={32} />
+          )}
         </div>
       </div>
       <form
