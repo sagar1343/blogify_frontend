@@ -38,7 +38,7 @@ function AddComments({ user, blogId, handleComment }: Props) {
         onSubmit={(event) => {
           event.preventDefault();
           handleComment(comment, blogId, user.id);
-          setComment(""); // Clear input after submitting
+          setComment("");
         }}
         className="w-full"
       >
