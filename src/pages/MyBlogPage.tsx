@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import BlogTable from "../components/BlogTable";
 import Chart from "../components/Chart";
 import Loader from "../components/Loader";
