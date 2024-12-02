@@ -1,33 +1,43 @@
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { api } from "../service/api";
 import { IBlog } from "../types/IBlog";
-import { useRef, useState } from "react";
 
 interface Props {
   blogs: IBlog[];
+  setBlogs?: React.Dispatch<React.SetStateAction<IBlog[]>>;
   editable?: boolean;
 }
 
-function BlogTable({ blogs: data, editable }: Props) {
-  const [blogs, setBlogs] = useState(data);
-  const deleteModal = useRef<HTMLDialogElement | null>(null);
+function BlogTable({ blogs, setBlogs, editable }: Props) {
+  const [isOpenModal, setOpenModal] = useState(false);
+  const [isDeleting, setDeleting] = useState(false);
   const navigate = useNavigate();
 
   async function handleDeletePost(id: number) {
+    setDeleting(true);
     try {
       await api.delete("/blogs/" + id);
-      setBlogs((blogs) => [...blogs.filter((blog) => blog.id !== id)]);
+      setBlogs &&
+        setBlogs((blogs: IBlog[]) => blogs.filter((blog) => blog.id !== id));
       toast.success("Successfully deleted the post");
     } catch (error) {
       toast.error("Changes are not saved. try again later!");
+    } finally {
+      setOpenModal(false);
+      setDeleting(false);
     }
   }
 
   if (!blogs?.length)
-    return <p className="text-4xl text-zinc-300">No Results Found :)</p>;
+    return (
+      <p className="text-3xl text-center text-zinc-300">
+        No blogs yet. Create one to get started!
+      </p>
+    );
 
   return (
     <div className="overflow-x-auto">
@@ -91,12 +101,15 @@ function BlogTable({ blogs: data, editable }: Props) {
                         <FaPencil /> Edit
                       </button>
                       <button
-                        onClick={() => deleteModal.current?.showModal()}
+                        onClick={() => setOpenModal(true)}
                         className="btn btn-error btn-xs flex-nowrap"
                       >
                         <FaTrashAlt /> Delete
                       </button>
-                      <dialog ref={deleteModal} className="modal">
+
+                      <dialog
+                        className={`modal ${isOpenModal ? "modal-open" : ""}`}
+                      >
                         <div className="modal-box">
                           <h3 className="font-bold text-lg">
                             Confirmation Required
@@ -107,12 +120,14 @@ function BlogTable({ blogs: data, editable }: Props) {
                           </p>
                           <div className="modal-action">
                             <button
-                              onClick={() => deleteModal.current?.close()}
+                              disabled={isDeleting}
+                              onClick={() => setOpenModal(false)}
                               className="btn"
                             >
                               Close
                             </button>
                             <button
+                              disabled={isDeleting}
                               onClick={() => handleDeletePost(blog.id)}
                               className="btn btn-error"
                             >

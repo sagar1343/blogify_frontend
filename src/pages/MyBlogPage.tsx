@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import BlogTable from "../components/BlogTable";
 import Chart from "../components/Chart";
 import Loader from "../components/Loader";
@@ -12,12 +12,19 @@ function MyBlogPage() {
   const [page, setPage] = useState(1);
   const query = `/blogs?author=${user?.id}&page=${page}`;
   const { data, loading, count } = useFetch<IBlog[]>(query);
+  const [blogs, setBlogs] = useState<IBlog[]>([]);
+
+  useEffect(() => {
+    data && setBlogs(data);
+  }, [data]);
 
   if (loading) return <Loader />;
   return (
     <div className="mt-5 space-y-10">
-      {data && data?.length > 0 && <Chart />}
-      <div>{data && <BlogTable blogs={data} editable />}</div>
+      {blogs && blogs.length > 0 && <Chart />}
+      <div>
+        {blogs && <BlogTable editable blogs={blogs} setBlogs={setBlogs} />}
+      </div>
       {page > 1 && (
         <div className="flex my-10 justify-center">
           <Pagination

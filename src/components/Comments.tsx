@@ -36,7 +36,7 @@ function Comments({ blogId }: { blogId: number }) {
   if (loading) return <CommentLoader />;
   return (
     <section className="p-8 space-y-4">
-      <h1 className="text-2xl font-semibold">{count} Comments</h1>
+      <h1 className="text-2xl font-semibold">{comments.length} Comments</h1>
       {blogId && user && (
         <AddComments user={user} blogId={blogId} handleComment={addComment} />
       )}

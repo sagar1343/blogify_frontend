@@ -6,6 +6,7 @@ import Loader from "../components/Loader";
 import { useBlog } from "../context/BlogContext";
 import useFetch from "../hooks/useFetch";
 import { IBlog } from "../types/IBlog";
+import SocialCounts from "../components/SocialCounts";
 
 function BlogDetailsPage() {
   const { id } = useParams();
@@ -51,6 +52,7 @@ function BlogDetailsPage() {
           </div>
         </div>
       )}
+      <SocialCounts />
       {blog && <Comments blogId={blog.id} />}
     </>
   );
